@@ -1,0 +1,56 @@
+﻿@model MovieEditView 
+@{
+    ViewData["Title"] = "Edit  Movie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2> <i class="bi bi-film"></i>  Edit Movie</h2>
+<hr />
+<form method="POST" id="inputform" enctype="multipart/form-data">
+    <input type="hidden" asp-for="movie.id" />
+    <div class="form-group">
+        <label class="text-muted" asp-for="movie.Title"></label>
+        <input class="form-control" type="text" asp-for="movie.Title" required maxlength="250" />
+        <span asp-validation-for="movie.Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="text-muted" asp-for="movie.Year"></label>
+        <input class="form-control" type="number" asp-for="movie.Year" required />
+        <span asp-validation-for="movie.Year" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+
+        <label class="text-muted" asp-for="movie.Rate"></label>
+        <input class="form-control" type="number" asp-for="movie.Rate" />
+        <span asp-validation-for="movie.Rate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="text-muted" asp-for="movie.StoryLine"></label>
+        <textarea class="form-control" asp-for="movie.StoryLine" form="inputform" maxlength="2500">Enter text here...</textarea>
+        <span asp-validation-for="movie.StoryLine" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="text-muted" asp-for="movie.GenreId"></label>
+        <select class="form-control" asp-for="movie.GenreId" asp-items="@(new SelectList(Model.genres,"id","Name"))">
+            <option></option>
+        </select>
+        <span asp-validation-for="movie.GenreId" class="text-danger"></span>
+    </div>
+
+    <div class="custom-file">
+
+        <input class="custom-file-input" type="file" name="img" accept="image/*" />
+        <label class="custom-file-label" asp-for="movie.Poster"></label>
+
+    </div>
+    <hr />
+    <button type="submit" class=" btn btn-primary" mt-4>
+        <i class="bi bi-check"></i>
+        Save
+    </button>
+    <a asp-action="index" class=" btn btn-secondary">
+        <i class="bi bi-x"></i>
+        Cancel
+    </a>
+
+</form>

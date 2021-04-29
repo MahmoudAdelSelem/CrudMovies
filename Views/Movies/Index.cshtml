@@ -1,0 +1,61 @@
+﻿
+@model List<coreCrudeMovies.Models.Movie>
+
+@{
+    ViewData["Title"] = "Movies";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1> <i class="bi bi-film"></i> Movies</h1>
+
+<a class="btn btn-primary" asp-action="Create"> <i class="bi bi-plus-circle-dotted"></i> Add New</a>
+<div class="mt-4">
+
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-warning" role="alert">
+            <i class="bi bi-exclamation-triangle"></i>  No Movies Added Yet
+        </div>
+    }
+    else
+
+    {
+        <div class="container">
+            <div class="card-group">
+                @foreach (var item in Model)
+                {
+                    if (ViewBag.removed == true)
+                    {
+
+                        <div class="alert alert-success" role="alert">
+                            An Item Was Removed <i class="bi bi-check2"></i>
+                        </div>
+                    }
+                    <div class="card" style="width: 18rem;">
+                        <img src="~/images/2380.png" asp-append-version="true">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Title</h5>
+
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">@item.Year</li>
+                            <li class="list-group-item">@item.Rate /10</li>
+                            <li class="list-group-item">@item.Genre.Name</li>
+                        </ul>
+                        <div class="card-body">
+                            <a asp-action="edit" asp-route-id="@item.id" class="card-link btn btn-primary">Edit</a>
+                            <a id="del" asp-action="delete" asp-route-id="@item.id" class="card-link btn btn-secondary" onclick="return confirm('Are You Sure You Want to Delete?')" >Delete</a>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Last updated 3 mins ago</small>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+    }
+</div>
+
